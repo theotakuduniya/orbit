@@ -14,9 +14,16 @@ import { StudioScreen } from './screens/StudioScreen';
 import { MediaScreen } from './screens/MediaScreen';
 import { VaultScreen } from './screens/VaultScreen';
 import { DailyScreen } from './screens/DailyScreen';
+import { useGestureNavigation } from './hooks/useGestureNavigation';
 
 const OrbitAppContent: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('daily');
+
+  // Passive touch gesture layer for fluid horizontal tab switching on mobile
+  useGestureNavigation({
+    activeTab,
+    onTabChange: setActiveTab,
+  });
 
   const handleQuickAction = (action: 'snap' | 'pin' | 'meme' | 'mood') => {
     if (action === 'snap' || action === 'mood') {
@@ -34,7 +41,7 @@ const OrbitAppContent: React.FC = () => {
       <OrbitHeader activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Main Content Area - Expands naturally on tablet/desktop, mobile-first on small screens */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-6 flex flex-col">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-6 pb-24 sm:pb-28 md:pb-8 flex flex-col">
         {activeTab === 'daily' && <DailyScreen />}
         {activeTab === 'studio' && <StudioScreen />}
         {activeTab === 'media' && <MediaScreen />}

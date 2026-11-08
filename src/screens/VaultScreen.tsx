@@ -22,13 +22,13 @@ export const VaultScreen: React.FC = () => {
               haptics.selection();
               setSegment('lists');
             }}
-            className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 min-h-[44px] py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all touch-manipulation cursor-pointer active:scale-95 ${
               segment === 'lists'
                 ? 'bg-white dark:bg-[#4F378B] text-slate-900 dark:text-white shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
             }`}
           >
-            <ListFilter className="w-3.5 h-3.5" />
+            <ListFilter className="w-4 h-4" />
             <span>Vault Lists</span>
           </button>
 
@@ -37,13 +37,13 @@ export const VaultScreen: React.FC = () => {
               haptics.selection();
               setSegment('watchlist');
             }}
-            className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 min-h-[44px] py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all touch-manipulation cursor-pointer active:scale-95 ${
               segment === 'watchlist'
                 ? 'bg-white dark:bg-[#4F378B] text-slate-900 dark:text-white shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
             }`}
           >
-            <Film className="w-3.5 h-3.5" />
+            <Film className="w-4 h-4" />
             <span>Watchlist</span>
           </button>
 
@@ -52,14 +52,14 @@ export const VaultScreen: React.FC = () => {
               haptics.selection();
               setSegment('bucket');
             }}
-            className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 min-h-[44px] py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all touch-manipulation cursor-pointer active:scale-95 ${
               segment === 'bucket'
                 ? 'bg-white dark:bg-[#4F378B] text-slate-900 dark:text-white shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
             }`}
           >
-            <Compass className="w-3.5 h-3.5" />
-            <span>Bucket list</span>
+            <Compass className="w-4 h-4" />
+            <span>Bucket List</span>
           </button>
         </div>
       </div>

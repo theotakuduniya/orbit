@@ -269,13 +269,25 @@ export const MobileTierStudio: React.FC = () => {
               haptics.light();
               setIsAddItemModalOpen(true);
             }}
-            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xs active:scale-95 transition-transform"
+            className="hidden sm:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xs active:scale-95 transition-transform"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Item</span>
           </button>
         </div>
       </div>
+
+      {/* Mobile Floating Action Button */}
+      <button
+        onClick={() => {
+          haptics.medium();
+          setIsAddItemModalOpen(true);
+        }}
+        className="sm:hidden fixed bottom-24 right-4 z-40 w-12 h-12 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xl flex items-center justify-center active:scale-90 transition-transform"
+        aria-label="Add item"
+      >
+        <Plus className="w-6 h-6 stroke-[2.5]" />
+      </button>
 
       {/* Tier Shelves Container */}
       <div className="p-3 space-y-2.5 flex-1 overflow-y-auto max-w-4xl mx-auto w-full">

@@ -70,8 +70,8 @@ export const GalleryDump: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full pb-16">
-      {/* Top Filter and Add Bar (Short labels, no uppercase) */}
-      <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 border-b border-black/[0.06] dark:border-white/[0.08] mb-3">
+      {/* Top Filter and Add Bar - hidden on mobile view */}
+      <div className="hidden sm:flex items-center justify-between px-3 sm:px-4 py-2.5 border-b border-black/[0.06] dark:border-white/[0.08] mb-3">
         <div className="flex items-center gap-1 overflow-x-auto py-0.5">
           {[
             { key: 'all', label: `All (${items.length})` },
@@ -101,12 +101,24 @@ export const GalleryDump: React.FC = () => {
             haptics.light();
             setIsAddOpen(true);
           }}
-          className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shrink-0 shadow-xs active:scale-95 transition-transform ml-2"
+          className="hidden sm:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shrink-0 shadow-xs active:scale-95 transition-transform ml-2"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Drop Photo</span>
         </button>
       </div>
+
+      {/* Mobile Floating Action Button */}
+      <button
+        onClick={() => {
+          haptics.medium();
+          setIsAddOpen(true);
+        }}
+        className="sm:hidden fixed bottom-24 right-4 z-40 w-12 h-12 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xl flex items-center justify-center active:scale-90 transition-transform"
+        aria-label="Drop photo"
+      >
+        <Plus className="w-6 h-6 stroke-[2.5]" />
+      </button>
 
       {/* Masonry Columns Gallery */}
       <div className="columns-2 sm:columns-3 md:columns-4 gap-3.5 space-y-3.5 px-3 sm:px-4 flex-1 overflow-y-auto">

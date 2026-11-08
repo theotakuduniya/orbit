@@ -47,13 +47,13 @@ export const PersistentMiniPlayer: React.FC = () => {
   return (
     <>
       {/* Floating Mini Player Dock */}
-      <div className="sticky bottom-14 md:bottom-4 z-30 px-3 sm:px-6 max-w-2xl mx-auto w-full">
+      <div className="sticky bottom-[74px] sm:bottom-[80px] md:bottom-4 z-30 px-3 sm:px-6 max-w-2xl mx-auto w-full mb-1">
         <div
           onClick={() => {
             haptics.selection();
             setIsPlayerExpanded(true);
           }}
-          className="group relative cursor-pointer overflow-hidden rounded-2xl bg-[#E8DEF8]/95 dark:bg-[#211F26]/95 backdrop-blur-md border border-black/[0.08] dark:border-white/[0.1] shadow-lg shadow-black/5 dark:shadow-black/20 p-2 transition-transform active:scale-[0.99]"
+          className="group relative cursor-pointer overflow-hidden rounded-2xl bg-[#E8DEF8]/95 dark:bg-[#211F26]/95 backdrop-blur-md border border-black/[0.08] dark:border-white/[0.1] shadow-xl shadow-black/10 dark:shadow-black/30 p-2 transition-transform active:scale-[0.99]"
         >
           {/* Subtle Progress Bar Underneath */}
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/10 dark:bg-white/10">

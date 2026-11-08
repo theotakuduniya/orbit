@@ -164,8 +164,8 @@ export const SpotifyDeck: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full max-w-7xl mx-auto w-full">
-      {/* MINIMAL TOP DIV: ONLY TOTAL SONGS AND ADD SONG BUTTON */}
-      <div className="flex items-center justify-between px-3 sm:px-5 py-3 border-b border-black/[0.06] dark:border-white/[0.08] mb-3">
+      {/* MINIMAL TOP DIV: ONLY TOTAL SONGS AND ADD SONG BUTTON - hidden on mobile */}
+      <div className="hidden sm:flex items-center justify-between px-3 sm:px-5 py-3 border-b border-black/[0.06] dark:border-white/[0.08] mb-3">
         <div className="flex items-center gap-2">
           <Music className="w-4 h-4 text-[#6750A4] dark:text-[#D0BCFF]" />
           <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
@@ -211,6 +211,18 @@ export const SpotifyDeck: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Mobile Floating Action Button */}
+      <button
+        onClick={() => {
+          haptics.medium();
+          setIsAddOpen(true);
+        }}
+        className="sm:hidden fixed bottom-24 right-4 z-40 w-12 h-12 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xl flex items-center justify-center active:scale-90 transition-transform"
+        aria-label="Add song"
+      >
+        <Plus className="w-6 h-6 stroke-[2.5]" />
+      </button>
 
       {/* REVAMPED UI: ALBUM COVERS GRID WITH ON-HOVER SONG DETAILS */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 px-3 sm:px-5 pb-24 overflow-y-auto">

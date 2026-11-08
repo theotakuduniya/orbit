@@ -29,8 +29,8 @@ export const DailyScreen: React.FC = () => {
 
   const BeRealSection = (
     <div className="space-y-3.5">
-      {/* BeReal Top Action Bar */}
-      <div className="flex items-center justify-between p-3 sm:p-4 rounded-3xl bg-white dark:bg-[#1D1B20] border border-black/[0.08] dark:border-white/[0.1] shadow-xs">
+      {/* BeReal Top Action Bar - hidden on mobile */}
+      <div className="hidden sm:flex items-center justify-between p-3 sm:p-4 rounded-3xl bg-white dark:bg-[#1D1B20] border border-black/[0.08] dark:border-white/[0.1] shadow-xs">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-black text-xs">
             BR
@@ -56,6 +56,18 @@ export const DailyScreen: React.FC = () => {
           <span>{hasPostedToday ? 'Retake' : 'Post BeReal'}</span>
         </button>
       </div>
+
+      {/* Mobile Floating Action Button (Elevated touch target >= 48px) */}
+      <button
+        onClick={() => {
+          haptics.medium();
+          setIsCameraCaptureOpen(true);
+        }}
+        className="sm:hidden fixed bottom-36 right-4 z-40 min-w-[50px] min-h-[50px] w-13 h-13 rounded-full bg-black dark:bg-white text-white dark:text-black shadow-xl shadow-black/20 dark:shadow-black/40 flex items-center justify-center active:scale-90 transition-transform touch-manipulation cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black dark:focus-visible:ring-white"
+        aria-label="Post BeReal"
+      >
+        <Plus className="w-6 h-6 stroke-[2.5]" />
+      </button>
 
       {/* Feed of BeReal Posts */}
       <div className="space-y-4">
@@ -83,13 +95,13 @@ export const DailyScreen: React.FC = () => {
               haptics.selection();
               setSegment('bereal');
             }}
-            className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 min-h-[44px] py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all touch-manipulation cursor-pointer active:scale-95 ${
               segment === 'bereal'
                 ? 'bg-white dark:bg-[#4F378B] text-slate-900 dark:text-white shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
             }`}
           >
-            <Camera className="w-3.5 h-3.5" />
+            <Camera className="w-4 h-4" />
             <span>BeReal</span>
           </button>
 
@@ -98,13 +110,13 @@ export const DailyScreen: React.FC = () => {
               haptics.selection();
               setSegment('mood');
             }}
-            className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 min-h-[44px] py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all touch-manipulation cursor-pointer active:scale-95 ${
               segment === 'mood'
                 ? 'bg-white dark:bg-[#4F378B] text-slate-900 dark:text-white shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
             }`}
           >
-            <span className="text-xs">😊</span>
+            <span className="text-sm">😊</span>
             <span>Mood</span>
           </button>
         </div>

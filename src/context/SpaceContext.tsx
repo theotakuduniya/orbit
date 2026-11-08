@@ -14,6 +14,7 @@ interface SpaceContextType {
   themeMode: 'light' | 'dark';
   toggleTheme: () => void;
   switchSpace: (spaceId: string) => void;
+  createSpace: (name: string, emoji: string, anniversaryOrDate?: string, description?: string) => void;
   isSearchOpen: boolean;
   setIsSearchOpen: (open: boolean) => void;
 }
@@ -46,6 +47,20 @@ export const SpaceProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCurrentSpaceId(spaceId);
   };
 
+  const createSpace = (name: string, emoji: string, anniversaryOrDate?: string, description?: string) => {
+    haptics.success();
+    const newSpace: Space = {
+      id: `space_${Date.now()}`,
+      name: name.trim(),
+      emoji: emoji.trim() || '🪐',
+      description: description?.trim() || 'Shared couple micro-space',
+      members: [currentUser, partner],
+      anniversaryOrDate: anniversaryOrDate?.trim() || undefined,
+    };
+    setSpaces((prev) => [...prev, newSpace]);
+    setCurrentSpaceId(newSpace.id);
+  };
+
   const toggleTheme = () => {
     haptics.light();
     setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -61,6 +76,7 @@ export const SpaceProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         themeMode,
         toggleTheme,
         switchSpace,
+        createSpace,
         isSearchOpen,
         setIsSearchOpen,
       }}

@@ -213,8 +213,8 @@ export const BucketListSection: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full pb-16">
-      {/* Top Filter and Add Bar (Short labels, no uppercase, completed div removed) */}
-      <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 border-b border-black/[0.06] dark:border-white/[0.08] mb-3">
+      {/* Top Filter and Add Bar - hidden on mobile view */}
+      <div className="hidden sm:flex items-center justify-between px-3 sm:px-4 py-2.5 border-b border-black/[0.06] dark:border-white/[0.08] mb-3">
         <div className="flex items-center gap-1 overflow-x-auto py-0.5">
           {[
             { key: 'all', label: `All (${items.length})` },
@@ -245,12 +245,24 @@ export const BucketListSection: React.FC = () => {
             haptics.light();
             setIsAddOpen(true);
           }}
-          className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shrink-0 shadow-xs active:scale-95 transition-transform ml-2"
+          className="hidden sm:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shrink-0 shadow-xs active:scale-95 transition-transform ml-2"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add dream</span>
         </button>
       </div>
+
+      {/* Mobile Floating Action Button */}
+      <button
+        onClick={() => {
+          haptics.medium();
+          setIsAddOpen(true);
+        }}
+        className="sm:hidden fixed bottom-24 right-4 z-40 w-12 h-12 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xl flex items-center justify-center active:scale-90 transition-transform"
+        aria-label="Add dream"
+      >
+        <Plus className="w-6 h-6 stroke-[2.5]" />
+      </button>
 
       {/* Small Square Rounded Cards Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 px-3 sm:px-4 pb-20 overflow-y-auto flex-1">

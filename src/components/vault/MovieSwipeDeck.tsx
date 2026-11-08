@@ -285,8 +285,8 @@ export const MovieSwipeDeck: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full pb-16">
-      {/* Top Header Toolbar */}
-      <div className="flex items-center justify-between px-3 sm:px-4 py-2 border-b border-black/[0.06] dark:border-white/[0.08]">
+      {/* Top Header Toolbar - hidden on mobile */}
+      <div className="hidden sm:flex items-center justify-between px-3 sm:px-4 py-2 border-b border-black/[0.06] dark:border-white/[0.08]">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-purple-100 dark:bg-purple-950/60 flex items-center justify-center text-[#6750A4] dark:text-[#D0BCFF]">
             <Clapperboard className="w-4 h-4" />
@@ -312,6 +312,18 @@ export const MovieSwipeDeck: React.FC = () => {
           <span>Add title</span>
         </button>
       </div>
+
+      {/* Mobile Floating Action Button */}
+      <button
+        onClick={() => {
+          haptics.medium();
+          setIsAddOpen(true);
+        }}
+        className="sm:hidden fixed bottom-24 right-4 z-40 w-12 h-12 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xl flex items-center justify-center active:scale-90 transition-transform"
+        aria-label="Add title"
+      >
+        <Plus className="w-6 h-6 stroke-[2.5]" />
+      </button>
 
       {/* Filter Tabs */}
       <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2.5 overflow-x-auto border-b border-black/[0.04] dark:border-white/[0.06] scrollbar-none">

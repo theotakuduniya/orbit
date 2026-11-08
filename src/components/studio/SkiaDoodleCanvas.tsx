@@ -524,15 +524,15 @@ export const SkiaDoodleCanvas: React.FC = () => {
     haptics.success();
     setIsPartnerDrawing(true);
     const partnerColor = '#EC4899';
-    const centerX = 500;
-    const centerY = 320;
+    const centerX = 800;
+    const centerY = 440;
 
     const heartPoints: { x: number; y: number }[] = [];
     for (let t = 0; t <= Math.PI * 2; t += 0.12) {
-      const x = centerX + 16 * Math.pow(Math.sin(t), 3) * 6;
+      const x = centerX + 16 * Math.pow(Math.sin(t), 3) * 8;
       const y =
         centerY -
-        (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * 6;
+        (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * 8;
       heartPoints.push({ x, y });
     }
 
@@ -565,75 +565,76 @@ export const SkiaDoodleCanvas: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full w-full max-w-6xl mx-auto px-1 sm:px-3 pb-16 select-none">
+    <div className="flex flex-col h-full w-full max-w-7xl mx-auto px-1 sm:px-3 pb-8 select-none flex-1">
       {/* Top Header Strip: Quick title, Undo/Redo, Clear, Partner Draw */}
-      <div className="flex items-center justify-between px-2 sm:px-4 py-2 mb-2">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+      <div className="flex items-center justify-between px-2 sm:px-4 py-1.5 sm:py-2 mb-1.5 sm:mb-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5 sm:gap-2">
             <PenTool className="w-4 h-4 text-[#6750A4] dark:text-[#D0BCFF]" />
-            <span>Orbit Doodlespace</span>
+            <span className="hidden xs:inline">Orbit Doodlespace</span>
+            <span className="xs:hidden">Doodle</span>
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           {/* Partner Live Draw Simulation */}
           <button
             onClick={simulatePartnerDoodle}
             disabled={isPartnerDrawing}
-            className="flex items-center gap-1 text-[11px] font-semibold px-3 py-1.5 rounded-full bg-pink-100 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800 active:scale-95 transition-transform"
+            className="flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-pink-100 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800 active:scale-95 transition-transform shrink-0"
           >
-            <Sparkles className="w-3.5 h-3.5 text-pink-500 animate-spin" />
-            <span className="hidden xs:inline">
-              {isPartnerDrawing ? 'Sam is drawing...' : 'Sam Draw 💖'}
+            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-pink-500 animate-spin" />
+            <span>
+              {isPartnerDrawing ? 'Drawing...' : 'Sam Draw 💖'}
             </span>
           </button>
 
           <button
             onClick={handleUndo}
             disabled={items.length === 0}
-            className="p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-black/[0.04] dark:hover:bg-white/[0.06] disabled:opacity-30"
+            className="p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-black/[0.04] dark:hover:bg-white/[0.06] disabled:opacity-30 transition-colors"
             title="Undo"
           >
-            <Undo2 className="w-4 h-4" />
+            <Undo2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
 
           <button
             onClick={handleRedo}
             disabled={redoStack.length === 0}
-            className="p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-black/[0.04] dark:hover:bg-white/[0.06] disabled:opacity-30"
+            className="p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-black/[0.04] dark:hover:bg-white/[0.06] disabled:opacity-30 transition-colors"
             title="Redo"
           >
-            <Redo2 className="w-4 h-4" />
+            <Redo2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
 
           <button
             onClick={handleClear}
-            className="p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30"
+            className="p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
             title="Clear canvas"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
 
           <button
             onClick={handleExportPNG}
-            className="p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-[#6750A4] dark:hover:text-[#D0BCFF]"
+            className="p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-[#6750A4] dark:hover:text-[#D0BCFF] transition-colors"
             title="Export PNG"
           >
-            <Download className="w-4 h-4" />
+            <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
         </div>
       </div>
 
-      {/* Main Expansive Drawing Viewport with Floating macOS Dock */}
+      {/* Main Expansive Drawing Viewport: Big Doodlespace */}
       <div
         ref={containerRef}
-        className="relative flex-1 w-full h-[520px] sm:h-[620px] bg-white dark:bg-[#1A1822] rounded-3xl shadow-xl border border-black/[0.08] dark:border-white/[0.1] overflow-hidden"
+        className="relative flex-1 w-full min-h-[560px] sm:min-h-[680px] h-[calc(100vh-230px)] bg-white dark:bg-[#1A1822] rounded-3xl shadow-xl border border-black/[0.08] dark:border-white/[0.1] overflow-hidden"
       >
         {/* Full-Resolution Position-Accurate Canvas */}
         <canvas
           ref={canvasRef}
-          width={1280}
-          height={760}
+          width={1600}
+          height={1000}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -674,23 +675,23 @@ export const SkiaDoodleCanvas: React.FC = () => {
           </div>
         )}
 
-        {/* FLOATING MAC DOCK-STYLE TOOLBAR (INSIDE DOODLESPACE) */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 max-w-[95%]">
-          <div className="relative backdrop-blur-2xl bg-white/80 dark:bg-[#1E1B26]/85 border border-white/60 dark:border-white/10 shadow-2xl rounded-2xl p-1.5 flex items-center gap-1 sm:gap-1.5 transition-all">
+        {/* FLOATING MAC DOCK-STYLE TOOLBAR (INSIDE DOODLESPACE) - RESPONSIVE FOR MOBILE */}
+        <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-16px)] sm:w-auto max-w-xl flex justify-center">
+          <div className="relative backdrop-blur-2xl bg-white/90 dark:bg-[#1E1B26]/90 border border-white/60 dark:border-white/10 shadow-2xl rounded-2xl p-1 sm:p-1.5 flex items-center justify-between sm:justify-center gap-0.5 sm:gap-1.5 transition-all overflow-x-auto scrollbar-none max-w-full">
             {/* Tool 1: Pen */}
             <button
               onClick={() => {
                 haptics.light();
                 setCurrentTool('pen');
               }}
-              className={`p-2 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 ${
+              className={`p-1.5 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 shrink-0 ${
                 currentTool === 'pen'
                   ? 'bg-[#EADDFF] dark:bg-[#4F378B] text-[#21005D] dark:text-[#EADDFF] shadow-xs scale-105'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
               title="Pen Tool"
             >
-              <PenTool className="w-4 h-4" />
+              <PenTool className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
 
             {/* Tool 2: Highlighter */}
@@ -699,14 +700,14 @@ export const SkiaDoodleCanvas: React.FC = () => {
                 haptics.light();
                 setCurrentTool('highlighter');
               }}
-              className={`p-2 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 ${
+              className={`p-1.5 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 shrink-0 ${
                 currentTool === 'highlighter'
                   ? 'bg-[#EADDFF] dark:bg-[#4F378B] text-[#21005D] dark:text-[#EADDFF] shadow-xs scale-105'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
               title="Highlighter"
             >
-              <Highlighter className="w-4 h-4" />
+              <Highlighter className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
 
             {/* Tool 3: Eraser */}
@@ -715,20 +716,20 @@ export const SkiaDoodleCanvas: React.FC = () => {
                 haptics.light();
                 setCurrentTool('eraser');
               }}
-              className={`p-2 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 ${
+              className={`p-1.5 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 shrink-0 ${
                 currentTool === 'eraser'
                   ? 'bg-[#EADDFF] dark:bg-[#4F378B] text-[#21005D] dark:text-[#EADDFF] shadow-xs scale-105'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
               title="Eraser"
             >
-              <Eraser className="w-4 h-4" />
+              <Eraser className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
 
-            <div className="w-[1px] h-6 bg-black/10 dark:bg-white/10 mx-0.5" />
+            <div className="w-[1px] h-5 sm:h-6 bg-black/10 dark:bg-white/10 mx-0.5 shrink-0" />
 
             {/* Tool 4: Shapes Menu Popover */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <button
                 onClick={() => {
                   haptics.selection();
@@ -737,26 +738,26 @@ export const SkiaDoodleCanvas: React.FC = () => {
                   setShowStickerPicker(false);
                   setShowBrushPicker(false);
                 }}
-                className={`p-2 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 flex items-center gap-0.5 ${
+                className={`p-1.5 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 flex items-center gap-0.5 ${
                   ['rect', 'circle', 'arrow', 'line', 'heart'].includes(currentTool)
                     ? 'bg-[#EADDFF] dark:bg-[#4F378B] text-[#21005D] dark:text-[#EADDFF] shadow-xs'
                     : 'text-slate-600 dark:text-slate-400'
                 }`}
                 title="Shapes"
               >
-                {currentTool === 'rect' && <Square className="w-4 h-4" />}
-                {currentTool === 'circle' && <Circle className="w-4 h-4" />}
-                {currentTool === 'arrow' && <ArrowUpRight className="w-4 h-4" />}
-                {currentTool === 'line' && <Minus className="w-4 h-4" />}
-                {currentTool === 'heart' && <Heart className="w-4 h-4 fill-current text-rose-500" />}
+                {currentTool === 'rect' && <Square className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                {currentTool === 'circle' && <Circle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                {currentTool === 'arrow' && <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                {currentTool === 'line' && <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                {currentTool === 'heart' && <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current text-rose-500" />}
                 {!['rect', 'circle', 'arrow', 'line', 'heart'].includes(currentTool) && (
-                  <Square className="w-4 h-4" />
+                  <Square className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 )}
                 <ChevronUp className="w-2.5 h-2.5 opacity-60" />
               </button>
 
               {showShapePicker && (
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 p-1.5 rounded-2xl bg-white dark:bg-[#26232D] shadow-2xl border border-black/[0.08] dark:border-white/[0.1] flex items-center gap-1 z-30 animate-in fade-in zoom-in-95">
+                <div className="absolute bottom-12 sm:bottom-14 left-1/2 -translate-x-1/2 p-1.5 rounded-2xl bg-white dark:bg-[#26232D] shadow-2xl border border-black/[0.08] dark:border-white/[0.1] flex items-center gap-1 z-30 animate-in fade-in zoom-in-95 max-w-[90vw]">
                   <button
                     onClick={() => {
                       setCurrentTool('rect');
@@ -817,18 +818,18 @@ export const SkiaDoodleCanvas: React.FC = () => {
                 haptics.light();
                 setCurrentTool('text');
               }}
-              className={`p-2 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 ${
+              className={`p-1.5 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 shrink-0 ${
                 currentTool === 'text'
                   ? 'bg-[#EADDFF] dark:bg-[#4F378B] text-[#21005D] dark:text-[#EADDFF] shadow-xs scale-105'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
               title="Click anywhere on canvas to type text"
             >
-              <Type className="w-4 h-4" />
+              <Type className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
 
             {/* Tool 6: Stickers Popover */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <button
                 onClick={() => {
                   haptics.selection();
@@ -837,19 +838,19 @@ export const SkiaDoodleCanvas: React.FC = () => {
                   setShowShapePicker(false);
                   setShowBrushPicker(false);
                 }}
-                className={`p-2 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 flex items-center gap-0.5 ${
+                className={`p-1.5 sm:p-2.5 rounded-xl transition-all duration-150 active:scale-90 flex items-center gap-0.5 ${
                   currentTool === 'sticker'
                     ? 'bg-[#EADDFF] dark:bg-[#4F378B] shadow-xs'
                     : 'text-slate-600 dark:text-slate-400'
                 }`}
                 title="Stickers"
               >
-                <Smile className="w-4 h-4" />
+                <Smile className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <ChevronUp className="w-2.5 h-2.5 opacity-60" />
               </button>
 
               {showStickerPicker && (
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 p-1.5 rounded-2xl bg-white dark:bg-[#26232D] shadow-2xl border border-black/[0.08] dark:border-white/[0.1] grid grid-cols-4 gap-1 z-30 animate-in fade-in zoom-in-95 w-44">
+                <div className="absolute bottom-12 sm:bottom-14 left-1/2 -translate-x-1/2 p-1.5 rounded-2xl bg-white dark:bg-[#26232D] shadow-2xl border border-black/[0.08] dark:border-white/[0.1] grid grid-cols-4 gap-1 z-30 animate-in fade-in zoom-in-95 w-44 max-w-[85vw]">
                   {STICKERS.map((stk) => (
                     <button
                       key={stk}
@@ -867,10 +868,10 @@ export const SkiaDoodleCanvas: React.FC = () => {
               )}
             </div>
 
-            <div className="w-[1px] h-6 bg-black/10 dark:bg-white/10 mx-0.5" />
+            <div className="w-[1px] h-5 sm:h-6 bg-black/10 dark:bg-white/10 mx-0.5 shrink-0" />
 
-            {/* Quick Color Swatches directly visible on dock */}
-            <div className="hidden sm:flex items-center gap-1">
+            {/* Quick Color Swatches directly visible on dock on desktop */}
+            <div className="hidden md:flex items-center gap-1 shrink-0">
               {['#6750A4', '#EC4899', '#10B981', '#0F172A'].map((c) => (
                 <button
                   key={c}
@@ -878,7 +879,7 @@ export const SkiaDoodleCanvas: React.FC = () => {
                     haptics.light();
                     setColor(c);
                   }}
-                  className={`w-5 h-5 rounded-full border-2 transition-transform ${
+                  className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 transition-transform ${
                     color === c ? 'scale-125 border-purple-400 shadow-xs' : 'border-white/50 dark:border-white/20'
                   }`}
                   style={{ backgroundColor: c }}
@@ -888,7 +889,7 @@ export const SkiaDoodleCanvas: React.FC = () => {
             </div>
 
             {/* Full Color Swatch & Custom Color Picker Popover */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <button
                 onClick={() => {
                   haptics.selection();
@@ -897,15 +898,15 @@ export const SkiaDoodleCanvas: React.FC = () => {
                   setShowStickerPicker(false);
                   setShowBrushPicker(false);
                 }}
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-white dark:border-[#26232D] shadow-sm flex items-center justify-center transition-transform active:scale-95 ring-1 ring-black/10 dark:ring-white/20"
+                className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 border-white dark:border-[#26232D] shadow-sm flex items-center justify-center transition-transform active:scale-95 ring-1 ring-black/10 dark:ring-white/20"
                 style={{ backgroundColor: color }}
                 title="Select Color (Pen, Shapes, Text)"
               >
-                <ChevronUp className="w-3 h-3 text-white drop-shadow-md" />
+                <ChevronUp className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white drop-shadow-md" />
               </button>
 
               {showColorPicker && (
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 p-3 rounded-2xl bg-white dark:bg-[#26232D] shadow-2xl border border-black/[0.08] dark:border-white/[0.1] z-30 animate-in fade-in zoom-in-95 w-52 space-y-2.5">
+                <div className="absolute bottom-12 sm:bottom-14 right-0 sm:left-1/2 sm:-translate-x-1/2 p-3 rounded-2xl bg-white dark:bg-[#26232D] shadow-2xl border border-black/[0.08] dark:border-white/[0.1] z-30 animate-in fade-in zoom-in-95 w-52 max-w-[88vw] space-y-2.5">
                   <div className="text-[10px] font-semibold text-slate-400 text-center">
                     Tool & shape color
                   </div>
@@ -944,7 +945,7 @@ export const SkiaDoodleCanvas: React.FC = () => {
             </div>
 
             {/* Stroke Thickness Popover */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <button
                 onClick={() => {
                   haptics.selection();
@@ -953,7 +954,7 @@ export const SkiaDoodleCanvas: React.FC = () => {
                   setShowShapePicker(false);
                   setShowStickerPicker(false);
                 }}
-                className="p-2 sm:p-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-black/[0.05] transition-all flex items-center gap-1 font-mono text-xs font-bold"
+                className="px-1.5 py-1 sm:p-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-black/[0.05] transition-all flex items-center gap-0.5 sm:gap-1 font-mono text-[11px] sm:text-xs font-bold"
                 title="Stroke Thickness"
               >
                 <span>{brushWidth}px</span>
@@ -961,7 +962,7 @@ export const SkiaDoodleCanvas: React.FC = () => {
               </button>
 
               {showBrushPicker && (
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 p-2.5 rounded-2xl bg-white dark:bg-[#26232D] shadow-2xl border border-black/[0.08] dark:border-white/[0.1] flex flex-col gap-2 z-30 animate-in fade-in zoom-in-95 w-36 text-center">
+                <div className="absolute bottom-12 sm:bottom-14 right-0 sm:left-1/2 sm:-translate-x-1/2 p-2.5 rounded-2xl bg-white dark:bg-[#26232D] shadow-2xl border border-black/[0.08] dark:border-white/[0.1] flex flex-col gap-2 z-30 animate-in fade-in zoom-in-95 w-36 max-w-[85vw] text-center">
                   <span className="text-[10px] font-semibold text-slate-400">
                     Stroke width
                   </span>

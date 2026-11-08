@@ -111,12 +111,24 @@ export const YouTubeDeck: React.FC = () => {
                 haptics.light();
                 setIsAddOpen(true);
               }}
-              className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72]"
+              className="hidden sm:flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72]"
             >
               <Plus className="w-3 h-3" />
               <span>Queue Video</span>
             </button>
           </div>
+
+          {/* Mobile Floating Action Button */}
+          <button
+            onClick={() => {
+              haptics.medium();
+              setIsAddOpen(true);
+            }}
+            className="sm:hidden fixed bottom-24 right-4 z-40 w-12 h-12 rounded-full bg-red-600 text-white shadow-xl flex items-center justify-center active:scale-90 transition-transform"
+            aria-label="Queue video"
+          >
+            <Plus className="w-6 h-6 stroke-[2.5]" />
+          </button>
 
           <div className="space-y-2 overflow-y-auto max-h-[480px]">
         {videos.map((vid) => {

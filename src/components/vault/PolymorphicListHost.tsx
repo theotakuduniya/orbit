@@ -75,8 +75,8 @@ export const PolymorphicListHost: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full pb-16">
-      {/* Controls Bar: Segmented Buttons + Add */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-black/[0.06] dark:border-white/[0.08]">
+      {/* Controls Bar: Segmented Buttons + Add - hidden on mobile view */}
+      <div className="hidden sm:flex items-center justify-between px-4 py-2 border-b border-black/[0.06] dark:border-white/[0.08]">
         {/* Segmented Buttons for Display Mode */}
         <div className="flex items-center p-1 rounded-xl bg-black/[0.04] dark:bg-white/[0.06]">
           <button
@@ -114,12 +114,24 @@ export const PolymorphicListHost: React.FC = () => {
             haptics.light();
             setIsAddOpen(true);
           }}
-          className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xs active:scale-95 transition-transform"
+          className="hidden sm:flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xs active:scale-95 transition-transform"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>New Entry</span>
         </button>
       </div>
+
+      {/* Mobile Floating Action Button (Elevated touch target >= 48px) */}
+      <button
+        onClick={() => {
+          haptics.medium();
+          setIsAddOpen(true);
+        }}
+        className="sm:hidden fixed bottom-36 right-4 z-40 min-w-[50px] min-h-[50px] w-13 h-13 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xl shadow-black/20 dark:shadow-black/40 flex items-center justify-center active:scale-90 transition-transform touch-manipulation cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#6750A4]"
+        aria-label="New entry"
+      >
+        <Plus className="w-6 h-6 stroke-[2.5]" />
+      </button>
 
       {/* List Content */}
       <div className="p-3 overflow-y-auto flex-1">

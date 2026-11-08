@@ -22,13 +22,13 @@ export const StudioScreen: React.FC = () => {
               haptics.selection();
               setSegment('moodboard');
             }}
-            className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 min-h-[44px] py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all touch-manipulation cursor-pointer active:scale-95 ${
               segment === 'moodboard'
                 ? 'bg-white dark:bg-[#4F378B] text-slate-900 dark:text-white shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
             }`}
           >
-            <LayoutGrid className="w-3.5 h-3.5" />
+            <LayoutGrid className="w-4 h-4" />
             <span>Moodboard</span>
           </button>
 
@@ -37,13 +37,13 @@ export const StudioScreen: React.FC = () => {
               haptics.selection();
               setSegment('doodle');
             }}
-            className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 min-h-[44px] py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all touch-manipulation cursor-pointer active:scale-95 ${
               segment === 'doodle'
                 ? 'bg-white dark:bg-[#4F378B] text-slate-900 dark:text-white shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
             }`}
           >
-            <PenTool className="w-3.5 h-3.5" />
+            <PenTool className="w-4 h-4" />
             <span>Live Doodle</span>
           </button>
 
@@ -52,13 +52,13 @@ export const StudioScreen: React.FC = () => {
               haptics.selection();
               setSegment('tier');
             }}
-            className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 min-h-[44px] py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all touch-manipulation cursor-pointer active:scale-95 ${
               segment === 'tier'
                 ? 'bg-white dark:bg-[#4F378B] text-slate-900 dark:text-white shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
             }`}
           >
-            <Layers className="w-3.5 h-3.5" />
+            <Layers className="w-4 h-4" />
             <span>Tier Maker</span>
           </button>
         </div>

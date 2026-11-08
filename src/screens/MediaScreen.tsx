@@ -121,8 +121,8 @@ export const MediaScreen: React.FC = () => {
         {segment === 'gallery' && <GalleryDump />}
         {segment === 'memes' && (
           <div className="p-3 pb-16">
-            {/* Top Toolbar */}
-            <div className="flex items-center justify-between px-2 mb-3">
+            {/* Top Toolbar - hidden on mobile */}
+            <div className="hidden sm:flex items-center justify-between px-2 mb-3">
               <div>
                 <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100">
                   Couple Meme Dump ({memes.length})
@@ -139,6 +139,18 @@ export const MediaScreen: React.FC = () => {
                 <span>Drop Meme</span>
               </button>
             </div>
+
+            {/* Mobile Floating Action Button (Elevated touch target >= 48px) */}
+            <button
+              onClick={() => {
+                haptics.medium();
+                setIsAddMemeOpen(true);
+              }}
+              className="sm:hidden fixed bottom-36 right-4 z-40 min-w-[50px] min-h-[50px] w-13 h-13 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xl shadow-black/20 dark:shadow-black/40 flex items-center justify-center active:scale-90 transition-transform touch-manipulation cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#6750A4]"
+              aria-label="Drop meme"
+            >
+              <Plus className="w-6 h-6 stroke-[2.5]" />
+            </button>
 
             {/* Staggered Masonry Grid */}
             <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4 max-w-7xl mx-auto">

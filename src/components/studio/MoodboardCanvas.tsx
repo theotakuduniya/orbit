@@ -3,7 +3,7 @@
  * Displays pinned photos, link tickets, and sticky notes in multiple aesthetic pastel colors.
  * Simplified modal without preset clutter or color selectors.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MoodboardItem } from '../../types/orbit';
 import { INITIAL_MOODBOARD_ITEMS } from '../../utils/mockData';
 import { Heart, Plus, Trash2, X, Pin, Sparkles } from 'lucide-react';
@@ -28,6 +28,16 @@ export const MoodboardCanvas: React.FC = () => {
   const [newContent, setNewContent] = useState('');
   const [newImageUrl, setNewImageUrl] = useState('');
   const [selectedColor, setSelectedColor] = useState<string>('#FEF08A');
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleLike = (id: string) => {
     haptics.light();
@@ -98,8 +108,8 @@ export const MoodboardCanvas: React.FC = () => {
 
   return (
     <div className="relative min-h-[520px] pb-16">
-      {/* Pinboard Toolbar */}
-      <div className="flex items-center justify-between px-2 sm:px-4 py-3 border-b border-black/[0.06] dark:border-white/[0.08] mb-4">
+      {/* Pinboard Toolbar - hidden on mobile view */}
+      <div className="hidden sm:flex items-center justify-between px-2 sm:px-4 py-3 border-b border-black/[0.06] dark:border-white/[0.08] mb-4">
         <div>
           <span className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
             <Pin className="w-4 h-4 text-[#6750A4] dark:text-[#D0BCFF]" />
@@ -111,12 +121,24 @@ export const MoodboardCanvas: React.FC = () => {
             haptics.light();
             setIsAddModalOpen(true);
           }}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] text-xs font-semibold shadow-sm active:scale-95 transition-transform"
+          className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] text-xs font-semibold shadow-sm active:scale-95 transition-transform"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Pin to Board</span>
         </button>
       </div>
+
+      {/* Mobile Floating Action Button (Elevated touch target >= 48px) */}
+      <button
+        onClick={() => {
+          haptics.medium();
+          setIsAddModalOpen(true);
+        }}
+        className="sm:hidden fixed bottom-36 right-4 z-40 min-w-[50px] min-h-[50px] w-13 h-13 rounded-full bg-[#6750A4] dark:bg-[#D0BCFF] text-white dark:text-[#381E72] shadow-xl shadow-black/20 dark:shadow-black/40 flex items-center justify-center active:scale-90 transition-transform touch-manipulation cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#6750A4]"
+        aria-label="Pin to board"
+      >
+        <Plus className="w-6 h-6 stroke-[2.5]" />
+      </button>
 
       {/* Pinboard Grid / Scattered Surface */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -127,15 +149,17 @@ export const MoodboardCanvas: React.FC = () => {
           return (
             <motion.div
               key={item.id}
-              drag
+              drag={!isMobile}
               dragConstraints={{ left: -15, right: 15, top: -15, bottom: 15 }}
-              whileDrag={{ scale: 1.04, zIndex: 30 }}
+              whileDrag={!isMobile ? { scale: 1.04, zIndex: 30 } : undefined}
               style={{
-                rotate: `${item.rotation}deg`,
+                rotate: isMobile ? 0 : `${item.rotation}deg`,
                 backgroundColor: style.backgroundColor,
                 borderColor: style.borderColor,
               }}
-              className={`relative rounded-2xl p-3.5 shadow-md border cursor-grab active:cursor-grabbing transition-shadow ${
+              className={`relative rounded-2xl p-3.5 shadow-md border transition-shadow ${
+                !isMobile ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'
+              } ${
                 isNote
                   ? 'shadow-black/5 dark:shadow-black/20'
                   : 'bg-white dark:bg-[#211F26] border-black/[0.08] dark:border-white/[0.1] text-slate-900 dark:text-slate-100'
