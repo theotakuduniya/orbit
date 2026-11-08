@@ -1,0 +1,6 @@
+{
+  "name": "Orbit Mobile - Collaborative Micro-Hub",
+  "description": "Collaborative micro-hub for couples and close groups: moodboard canvas, doodle studio, tier list ranking, meme vault, synced media lounge, watchlist swipe decider, BeReal dual-snap, and paired mood matrix.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
